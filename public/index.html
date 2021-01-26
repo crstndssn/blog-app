@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Blog App</title>
+
+</head>
+
+<body>
+
+    <!-- navigatio no auth -->
+    <nav id="navigationPublic" style="display: none;" class="container mx-auto flex justify-between items-center py-8">
+        <h1 class="text-3xl font-semibold">Blog</h1>
+        <div class="flex justify-center items-center">
+            <p class="cursor-pointer text-md mx-6 logged-out" id="btn-signup">Sign Up</p>
+            <p class="cursor-pointer text-md text-white bg-black py-1 px-3 rounded-md logged-out" id="btn-login">Log In
+            </p>
+        </div>
+    </nav>
+
+    <!-- navigatio auth -->
+    <nav id="navigationAuth" style="display: none;" class="container mx-auto flex justify-between items-center py-8">
+        <h1 class="text-3xl font-semibold">Blog</h1>
+        <div class="flex justify-center items-center">
+            <!-- <p class="cursor-pointer text-md mx-6" id="logout">logout</p> -->
+            <p id="getPostBtn"
+                class="cursor-pointer text-md mx-2 text-black bg-transparent py-1 px-3 rounded-md border border-black">
+                posts</p>
+            <p id="addPostBtn" class="cursor-pointer text-md text-white bg-black py-1 px-3 rounded-md">add post
+            </p>
+            <img id="userAvatar" class="w-9 ml-5 rounded-full cursor-pointer" alt="user-img">
+        </div>
+    </nav>
+
+    <!-- login -->
+    <div id="modal-login" class="modal">
+        <div class="container mx-auto bg-white md:w-1/2 xl:w-2/6 p-7 rounded-lg">
+            <span class="close-login float-right text-4xl text-gray-400 cursor-pointer">&times;</span>
+            <h3 class="font-semibold text-3xl mt-2 mb-4">Log In</h3>
+            <form id="form-login">
+                <input type="email" id="login-email" class="bg-gray-200 p-3 my-2 w-full rounded-md" placeholder="Email">
+                <input type="password" id="login-password" class="bg-gray-200 p-3 my-2 w-full rounded-md"
+                    placeholder="Password">
+                <button type="submit" class="w-full bg-black text-white my-2 p-3 rounded-md text-xl">Log In</button>
+                <button id="login-google"
+                    class="w-full bg-red-500 text-white my-2 p-3 rounded-md text-xl">Google</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- sign up -->
+    <div id="modal-signup" class="modal">
+        <div class="container mx-auto bg-white md:w-1/2 xl:w-2/6 p-7 rounded-lg">
+            <span class="close-signup float-right text-4xl text-gray-400 cursor-pointer">&times;</span>
+            <h3 class="font-semibold text-3xl mt-2 mb-4">Sign Up</h3>
+            <form id="form-signup">
+                <input type="text" id="signup-name" class="bg-gray-200 p-3 my-2 w-full rounded-md" placeholder="Name">
+                <input type="email" id="signup-email" class="bg-gray-200 p-3 my-2 w-full rounded-md"
+                    placeholder="Email">
+                <input type="password" id="signup-password" class="bg-gray-200 p-3 my-2 w-full rounded-md"
+                    placeholder="Password">
+                <button type="submit" class="w-full bg-black text-white my-2 p-3 rounded-md text-xl">Sign Up</button>
+                <button id="signup-google"
+                    class="w-full bg-red-500 text-white my-2 p-3 rounded-md text-xl">Google</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- main container -->
+    <div id="viewContainer" class="container mx-auto flex justify-center items-center">
+        <div id="addPostView" style="display: none;" class="w-2/3">
+            <form id="createPostForm">
+                <h1 class="font-semibold text-3xl my-2">Create Post</h1>
+                <input id="titlePostForm" type="text" placeholder="title"
+                    class="bg-gray-200 p-3 my-2 w-full rounded-md">
+                <input id="linkVideoPostForm" type="text" placeholder="link video"
+                    class="bg-gray-200 p-3 my-2 w-full rounded-md">
+                <div class="progress-panel">
+                    <label for="">imagen</label>
+                </div>
+                <button class="bg-black text-white my-2 p-3 rounded-md text-md">upload image</button>
+                <textarea id="descriptionPostForm" name="description" id="" cols="30" rows="10"
+                    placeholder="description" class="bg-gray-200 p-3 my-2 w-full rounded-md"></textarea>
+                <button type="submit" class="w-full bg-black text-white my-2 p-3 rounded-md text-xl">Subir</button>
+            </form>
+        </div>
+        <div id="getPostView" style="display: none;"class='container mx-auto grid grid-cols-2 gap-10'>
+            <!-- <h1 class="font-semibold text-3xl my-2">here going the posts</h1> -->
+        </div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDAD8785fwXNqpBb-AFSR0xM_GTULEVXYQ",
+            authDomain: "blog-app-714d1.firebaseapp.com",
+            projectId: "blog-app-714d1",
+            storageBucket: "blog-app-714d1.appspot.com",
+            messagingSenderId: "465907853209",
+            appId: "1:465907853209:web:9ff39cb2b56055b24cd508"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-storage.js"></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/util/modal.js"></script>
+    <script src="js/util/util.js"></script>
+    <script src="js/auth/autentication.js"></script>
+    <script src="js/auth/autenticationController.js"></script>
+    <script src="js/post/post.js"></script>
+    <script src="js/post/postController.js"></script>
+
+</body>
+
+</html>
