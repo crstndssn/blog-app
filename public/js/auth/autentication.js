@@ -32,6 +32,20 @@ class Autentication {
             })
     };
 
+    // Signup Google
+    signUpGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase
+            .auth()
+            .signInWithPopup(provider)
+            .then(result => {
+                console.log(result)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
 
     // Login User
     authEmailPassword(email, password) {

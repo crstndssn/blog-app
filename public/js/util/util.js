@@ -2,7 +2,7 @@ class Utility {
     static getDate (timeStamp) {
         const d = new Date(timeStamp)
         let month = '' + (d.getMonth() + 1)
-        let day = '' + d.getDate() + 1
+        let day = '' + d.getDate()
         let year = '' + d.getFullYear()
 
         if (month.length < 2) month = '0' + month

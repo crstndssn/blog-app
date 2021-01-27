@@ -81,10 +81,12 @@
                     class="bg-gray-200 p-3 my-2 w-full rounded-md">
                 <input id="linkVideoPostForm" type="text" placeholder="link video"
                     class="bg-gray-200 p-3 my-2 w-full rounded-md">
-                <div class="progress-panel">
-                    <label for="">imagen</label>
+                <div class="progress-panel my-2">
+                    <input class="file" type="file" type="upload" name="upload image" id="input-image">
+                    <div class="w-32 bg-gray-300 rounded-full">
+                        <div class="upload-image h-3 bg-green-600 my-2 rounded-full"></div>
+                    </div>
                 </div>
-                <button class="bg-black text-white my-2 p-3 rounded-md text-md">upload image</button>
                 <textarea id="descriptionPostForm" name="description" id="" cols="30" rows="10"
                     placeholder="description" class="bg-gray-200 p-3 my-2 w-full rounded-md"></textarea>
                 <button type="submit" class="w-full bg-black text-white my-2 p-3 rounded-md text-xl">Subir</button>

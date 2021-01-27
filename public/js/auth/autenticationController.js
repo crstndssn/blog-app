@@ -40,14 +40,13 @@ const authGoogleBtn = document.getElementById('login-google');
 authGoogleBtn.addEventListener('click', (e) => {
     e.preventDefault();
     auth.authGoogle();
-
     console.log('logged google')
     modalLogin.style.display = 'none';
 })
 
 
 // Signup
-const signUpGoogleBtn = document.getElementById('login-google');
+const signUpGoogleBtn = document.getElementById('signup-google');
 signUpGoogleBtn.addEventListener('click', (e) => {
     e.preventDefault();
     auth.authGoogle();

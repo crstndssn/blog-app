@@ -60,7 +60,7 @@ const viewContainer = document.getElementById('viewContainer');
 
 window.addEventListener('DOMContentLoaded', (e) => {
   addPostView.style.display = 'none';
-  getPostView.style.display = 'flex';
+  getPostView.style.display = 'grid';
 })
 
 addPostBtn.addEventListener('click', (e) => {
@@ -72,7 +72,7 @@ addPostBtn.addEventListener('click', (e) => {
 getPostBtn.addEventListener('click', (e) => {
   e.preventDefault();
   addPostView.style.display = 'none';
-  getPostView.style.display = 'flex';
+  getPostView.style.display = 'grid';
 })
 
 

@@ -12,10 +12,9 @@ createPostForm.addEventListener('submit', (e) => {
     const title = createPostForm['titlePostForm'].value;
     const description = createPostForm['descriptionPostForm'].value;
     const videoLink = createPostForm['linkVideoPostForm'].value;
-    const imagenLink = null;
-    // const imagenLink = sessionStorage.getItem('imgNewPost') == 'null'
-    //     ? null
-    //     : sessionStorage.getItem('imgNewPost')
+    const imagenLink = sessionStorage.getItem('imgNewPost') == 'null'
+        ? null
+        : sessionStorage.getItem('imgNewPost')
 
     console.log(title, description, videoLink);
 
@@ -35,6 +34,16 @@ createPostForm.addEventListener('submit', (e) => {
     })
     
 })
+
+const inputImageBtn = document.getElementById('input-image')
+    inputImageBtn.addEventListener('change', (e) => {
+        e.preventDefault();
+        const file = e.target.files[0]
+        const user = firebase.auth().currentUser
+        const post = new Post()
+        post.addImagenPost(file, user.uid)
+    })
+    
 
 window.addEventListener('DOMContentLoaded', (e) => {
     const post = new Post();

@@ -25,14 +25,15 @@ class Post {
             .collection('posts')
             .onSnapshot(querySnapshot => {
                 console.log(`los posts: ${querySnapshot}`)
+                getPostView.innerHTML = '';
                 querySnapshot.forEach(post => {
                     let postHtml = this.getPostTemplate(
                         post.data().autor,
                         post.data().title,
                         post.data().description,
                         post.data().videoLink,
-                        // Utility.getDate(post.data().date.toDate())
-                        post.data().date
+                        post.data().imagenLink,
+                        Utility.getDate(post.data().date.toDate())
                     )
                     getPostView.innerHTML += postHtml
                 })
@@ -44,14 +45,15 @@ class Post {
         title,
         description,
         videoLink,
+        imagenLink,
         date
     ) {
         return `
             <article class="border border-black rounded-lg w-full p-5">
                 <h2 class="font-medium text-xl my-1">${title}</h2>
                 <p class="font-normal text-gray-400 my-1">por ${autor}</p>
-                <iframe class="w-full my-4" src="${videoLink}">
-                </iframe>
+                <p class="text-lg">${videoLink}</p>
+                <img src="${imagenLink}" />
                 <p class="text-lg">${description}</p>
                 <p class="font-normal text-gray-400">${date}</p>
             </article>
@@ -60,8 +62,33 @@ class Post {
     }
 
     addImagenPost (file, uid) {
-        const refStorage = firebase.storage()
+        const refStorage = firebase.storage().ref(`imgsPosts/${uid}/${file.name}`);
+        const task = refStorage.put(file)
+        
+        task.on(
+            'state_changed',
+            snapshot => {
+                const porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes * 100)
+                console.log(porcentaje)
+                document.querySelector('.upload-image').style.width = `${porcentaje}%`
+            },
+            err => {
+                console.log(err)
+            },
+            () => {
+                task.snapshot.ref
+                    .getDownloadURL()
+                    .then(url => {
+                        console.log(url)
+                        sessionStorage.setItem('imgNewPost' ,url)
+                    })
+                    .catch(err => {
+                        console.log(`Error obteniendo el downloadURL ${err}`)
+                    })
+            }
+        )
     }
 
+    
 
 }
